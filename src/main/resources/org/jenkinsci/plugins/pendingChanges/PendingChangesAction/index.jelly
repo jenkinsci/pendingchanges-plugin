@@ -37,7 +37,7 @@
             <j:forEach var="c" items="${it.pendingChanges.iterator()}" varStatus="loop">
                 <li>
                     <j:out value="${c.commitId}"/>:
-                    <j:out value="${c.msg}"/>
+                    <j:out value="${c.msgAnnotated}"/>
                     &#8212;
                     <a href="${rootURL}/${c.author.url}/" class="model-link">${c.author}</a>
                 </li>

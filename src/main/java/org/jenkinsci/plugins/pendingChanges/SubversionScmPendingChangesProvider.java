@@ -25,6 +25,7 @@
 package org.jenkinsci.plugins.pendingChanges;
 
 import hudson.Extension;
+import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.User;
 import hudson.scm.ChangeLogSet;
@@ -106,7 +107,7 @@ public class SubversionScmPendingChangesProvider implements ScmPendingChangesPro
 
             retrieveSubversionLogEntries(logEntries, svnRepository, startRevision+1, -1);
         }
-        return new SSCLPChangeLogSet(logEntries);
+        return new SSCLPChangeLogSet(project, logEntries);
     }
 
     /**
@@ -147,9 +148,12 @@ public class SubversionScmPendingChangesProvider implements ScmPendingChangesPro
 
         private List<Entry> entries;
 
-        protected SSCLPChangeLogSet(List<Entry> entries) {
-            super(null);
+        protected SSCLPChangeLogSet(AbstractProject project, List<Entry> entries) {
+            super((AbstractBuild<?,?>) project.getLastSuccessfulBuild());
             this.entries = entries;
+            for(Entry entry : entries) {
+                entry.setParent(this);
+            }
         }
 
         public boolean isEmptySet() {
@@ -170,6 +174,10 @@ public class SubversionScmPendingChangesProvider implements ScmPendingChangesPro
             private String commitId;
             private String msg;
             private User author;
+
+            protected void setParent(ChangeLogSet parent) {
+                super.setParent(parent);
+            }
 
             public String getCommitId() {
                 return commitId;
