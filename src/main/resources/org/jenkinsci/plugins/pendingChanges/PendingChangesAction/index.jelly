@@ -34,14 +34,18 @@
             <j:if test="${!it.pendingChanges.iterator().hasNext()}">
                 <p>${%No changes found}</p>
             </j:if>
-            <j:forEach var="c" items="${it.pendingChanges.iterator()}" varStatus="loop">
-                <li>
-                    <j:out value="${c.commitId}"/>:
-                    <j:out value="${c.msgAnnotated}"/>
-                    &#8212;
-                    <a href="${rootURL}/${c.author.url}/" class="model-link">${c.author}</a>
-                </li>
-            </j:forEach>
+            <j:if test="${it.pendingChanges.iterator().hasNext()}">
+                <ul>
+                    <j:forEach var="c" items="${it.pendingChanges.iterator()}" varStatus="loop">
+                        <li>
+                            <j:out value="${c.commitId}"/>:
+                            <j:out value="${c.msgAnnotated}"/>
+                            &#8212;
+                            <a href="${rootURL}/${c.author.url}/" class="model-link">${c.author}</a>
+                        </li>
+                    </j:forEach>
+                </ul>
+            </j:if>
         </l:main-panel>
     </l:layout>
 </j:jelly>
