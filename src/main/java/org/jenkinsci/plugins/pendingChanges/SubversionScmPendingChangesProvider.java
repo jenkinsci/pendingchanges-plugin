@@ -97,11 +97,16 @@ public class SubversionScmPendingChangesProvider implements ScmPendingChangesPro
                     revisionKey = "SVN_REVISION_" + i;
                 }
 
-                startRevision = Long.parseLong(project.getLastSuccessfulBuild()
-                        .getEnvironment(new LogTaskListener(logger, Level.INFO)).get(revisionKey));
+                AbstractBuild lastSuccessfulBuild = (AbstractBuild) project.getLastSuccessfulBuild();
+                if(lastSuccessfulBuild!=null) {
+                    startRevision = Long.parseLong(project.getLastSuccessfulBuild().getEnvironment(new LogTaskListener(logger, Level.INFO)).get(revisionKey));
+                } else {
+                    logger.log(Level.WARNING, "could not determine start revision, skipping location '" + locations[i].getURL() + "'");
+                    continue;
+                }
 
             } catch (Exception e) {
-                logger.log(Level.WARNING, "could not determine start revision, skipping", e);
+                logger.log(Level.WARNING, "could not determine start revision, skipping location '" + locations[i].getURL() + "'", e);
                 continue;
             }
 
