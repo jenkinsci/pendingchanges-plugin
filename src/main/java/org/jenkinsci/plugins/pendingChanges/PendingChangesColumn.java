@@ -58,7 +58,7 @@ public class PendingChangesColumn extends ListViewColumn
 
         @Override
         public String getDisplayName() {
-            return "";
+            return Messages.displayName();
         }
 
     }
