@@ -26,7 +26,7 @@
     <td>
         <j:if test="${it.hasPendingChanges(job)}">
             <a href="${jobBaseUrl}${job.shortUrl}pendingChanges">
-                <img src="${imagesURL}/${iconSize}/clipboard.png" title="${%has changes}" alt="${%has changes}"
+                <img src="${rootURL}/plugin/pending-changes/icons/${iconSize}/changes-available.png" title="${%has changes}" alt="${%has changes}"
                      border="0"/>
             </a>
         </j:if>
