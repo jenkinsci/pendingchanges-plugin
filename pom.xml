@@ -11,7 +11,7 @@
     <name>Pending Changes plugin</name>
     <description>Adds a view of all changes in SCM more recent than the last build</description>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Pending+Changes+Plugin</url>
-    <version>0.2.1</version>
+    <version>0.3.0-SNAPSHOT</version>
     <packaging>hpi</packaging>
 
     <properties>
