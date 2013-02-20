@@ -61,7 +61,7 @@ public class PendingChangesAction implements Action
     }
 
     public String getIconFileName() {
-        return project.hasPermission(AbstractProject.CONFIGURE) ? "clipboard.png" : null;
+        return "/plugin/pending-changes/icons/24x24/changes-available.png";
     }
 
     public String getDisplayName() {
