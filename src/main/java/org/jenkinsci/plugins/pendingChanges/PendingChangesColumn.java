@@ -26,6 +26,7 @@ package org.jenkinsci.plugins.pendingChanges;
 
 import hudson.Extension;
 import hudson.model.Job;
+import hudson.scm.ChangeLogSet;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -45,6 +46,15 @@ public class PendingChangesColumn extends ListViewColumn
             return it!=null && it.iterator().hasNext();
         } else {
             return false;
+        }
+    }
+
+    public Iterable<ChangeLogSet.Entry> getPendingChanges(Job job) {
+        PendingChangesAction action = job.getAction(PendingChangesAction.class);
+        if (action != null) {
+            return action.getPendingChanges();
+        } else {
+            return null;
         }
     }
 

@@ -28,15 +28,16 @@
         <l:main-panel>
             <h1>${%Pending Changes}</h1>
             <h2>${it.getProject().getName()}</h2>
-            <j:if test="${it.pendingChanges==null}">
+            <j:set var="changes" value="${it.pendingChanges}"/>
+            <j:if test="${changes==null}">
                 <p>${%SCM does not support retrieving pending changes!}</p>
             </j:if>
-            <j:if test="${!it.pendingChanges.iterator().hasNext()}">
+            <j:if test="${!changes.iterator().hasNext()}">
                 <p>${%No changes found}</p>
             </j:if>
-            <j:if test="${it.pendingChanges.iterator().hasNext()}">
+            <j:if test="${changes.iterator().hasNext()}">
                 <ul>
-                    <j:forEach var="c" items="${it.pendingChanges.iterator()}" varStatus="loop">
+                    <j:forEach var="c" items="${changes.iterator()}" varStatus="loop">
                         <li>
                             <j:out value="${c.commitId}"/>:
                             <j:out value="${c.msgAnnotated}"/>

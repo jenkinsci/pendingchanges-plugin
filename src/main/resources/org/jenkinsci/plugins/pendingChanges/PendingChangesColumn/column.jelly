@@ -24,9 +24,16 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
          xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
     <td>
-        <j:if test="${it.hasPendingChanges(job)}">
+        <j:set var="changes" value="${it.getPendingChanges(job)}"/>
+        <j:set var="desc" value=""/>
+        <j:if test="${changes.iterator().hasNext()}">
+            <j:forEach var="c" items="${changes.iterator()}" varStatus="loop">
+                    <j:set var="desc" value="${desc}${c.commitId}: ${c.msg} &#8212; ${c.author}&#13;"/>
+            </j:forEach>
             <a href="${jobBaseUrl}${job.shortUrl}pendingChanges">
-                <img src="${rootURL}/plugin/pending-changes/icons/${iconSize}/changes-available.png" title="${%has changes}" alt="${%has changes}"
+                <img src="${rootURL}/plugin/pending-changes/icons/${iconSize}/changes-available.png"
+                     title="${desc}"
+                     alt="${desc}"
                      border="0"/>
             </a>
         </j:if>
